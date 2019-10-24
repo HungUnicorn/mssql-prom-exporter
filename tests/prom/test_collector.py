@@ -8,8 +8,8 @@ from app.prom import collector
 
 class TestCollector(TestCase):
 
-    @mock.patch('app.prom.database.util.get_query_result')
-    @mock.patch('app.prom.database.util.get_connection')
+    @mock.patch('app.prom.collector.db_util.get_query_result')
+    @mock.patch('app.prom.collector.db_util.get_connection')
     def test_should_collect(self, mock_connection, mock_query_result):
         app = MagicMock()
         collector_init = collector.Collector([MagicMock(), ])
@@ -18,8 +18,8 @@ class TestCollector(TestCase):
         mock_connection.assert_called_once()
         self.assertEqual(mock_query_result.call_count, len(collector_init.metrics))
 
-    @mock.patch('app.prom.database.util.get_query_result')
-    @mock.patch('app.prom.database.util.get_connection')
+    @mock.patch('app.prom.collector.db_util.get_query_result')
+    @mock.patch('app.prom.collector.db_util.get_connection')
     def test_should_not_get_query_result_given_InterfaceError(self, mock_connection, mock_query_result):
         mock_connection.side_effect = InterfaceError()
         app = MagicMock()
