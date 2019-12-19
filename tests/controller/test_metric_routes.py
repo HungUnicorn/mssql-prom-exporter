@@ -9,15 +9,11 @@ in a separate terminal window.
 """
 
 import logging
-import os
 from unittest import mock
 
 from flask_testing import TestCase
 
 from app import create_app, LOGGER
-
-# Creates the Flask application object that we use to initialize things in the app.
-os.environ['FLASK_CONFIG'] = 'config.TestingConfig'
 
 # Creates a new instance of the Flask application. The reason for this
 # is that we can't interrupt the application instance that is currently
@@ -27,7 +23,6 @@ app = create_app()
 
 
 class TestMetric(TestCase):
-
     def create_app(self):
         """
         Instructs Flask to run these commands when we request this group of tests to be run.

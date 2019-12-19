@@ -12,7 +12,7 @@ class BaseConfig:
 
     SERVER = os.getenv('MSSSQL_SERVER', 'localhost')
     USERNAME = os.getenv('MSSSQL_USERNAME', 'SA')
-    PASSWORD = os.getenv('MSSSQL_PASSWORD', 'YourStrong!Passw0rd')
+    PASSWORD = os.getenv('MSSSQL_PASSWORD', 'YourStrongPassw0rd')
     COLLECT_METRICS_INTERVAL_SEC = int(
         os.getenv('COLLECT_METRICS_INTERVAL_SEC', 120))
     DEBUG = False

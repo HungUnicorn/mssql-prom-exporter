@@ -7,7 +7,7 @@ services:
     image: microsoft/mssql-server-linux
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourStrong!Passw0rd
+      - SA_PASSWORD=YourStrongPassw0rd
     ports:
       - 1433:1433
     networks:
@@ -32,7 +32,7 @@ services:
     environment:
       - MSSSQL_SERVER=sqlserver
       - MSSSQL_USERNAME=SA
-      - MSSSQL_PASSWORD=YourStrong!Passw0rd
+      - MSSSQL_PASSWORD=YourStrongPassw0rd
       - FLASK_CONFIG=config.DevelopmentConfig
       - COLLECT_METRICS_INTERVAL_SEC=15
     networks:

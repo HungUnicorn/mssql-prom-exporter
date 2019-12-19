@@ -70,10 +70,6 @@ $ source env/bin/activate
 $ python3 manage.py runserver
 ```
 
-## Formatting code
-
-Before you submit changes, you may want to autoformat your code with `python manage.py format`.
-
 ## Development
 Add new Metrics by extending `AbstractMetric`,
 under `app/prom/metrics`, either `general`, which is related to system

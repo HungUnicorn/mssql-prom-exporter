@@ -42,28 +42,36 @@ def create_app():
     app.register_blueprint(metric_blueprint, url_prefix='/metrics')
 
     # scheduler application
-    scheduler.init_app(app)
+    _init_scheduler(app)
 
-    # prom extension
-    from app.prom.prom_init import PromInitializer
-    app.prom_init = PromInitializer()
+    return app
 
-    # Start after app is created, manage.py calls it even when in testing, so should be avoided
-    if not app.testing:
+
+def _init_scheduler(app):
+    # Scheduler is not running separately. Should check otherwise exception is thrown
+    if not scheduler.running:
+        scheduler.init_app(app)
+
+        # prom extension
+        from app.prom.prom_init import PromInitializer
+        app.prom_init = PromInitializer()
+
+        # Start after app is created, manage.py calls it even when in testing, so should be avoided
+        # if not app.testing:
         scheduler.start()
         # collect immediately
         try:
             app.prom_init.collector.collect(app)
         except OperationalError as e:
-            LOGGER.info("Exception for the first time when connecting to database: %s", str(e))
+            LOGGER.info(
+                "Exception for the first time when connecting to database: %s",
+                str(e))
         # schedule next
         scheduler.add_job(id='exporter_1',
                           func=app.prom_init.collector.collect,
                           args=[app],
                           trigger='interval',
                           seconds=app.config['COLLECT_METRICS_INTERVAL_SEC'])
-
-    return app
 
 
 if __name__ == '__main__':

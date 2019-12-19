@@ -6,16 +6,11 @@ This file tests the various configurations of the Flask app.
 It's pretty standard and shouldn't really be modified, unless you add
 new configurations.
 """
-import os
-import unittest
 
 from flask import current_app
 from flask_testing import TestCase
 
 from app import create_app
-
-# Creates the Flask application object that we use to initialize things in the app.
-os.environ['FLASK_CONFIG'] = 'config.TestingConfig'
 
 app = create_app()
 
